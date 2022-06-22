@@ -1,34 +1,18 @@
-const declaration = document.getElementById("declaration");
 
-const n = document.querySelector("input").value
+function fibonacci(e){
+  e.preventDefault();
+  let num = document.getElementById("numberHere").value;
+  let x = 0, y = 1, c;
 
-const submit = document.getElementById("submit")
+  for (let i = 1; i < num; i++) {
+  c = x + y;
+  x = y;
+  y = c;
 
-function getFibonacciIndex(n) {
-    let x = 0, y = 1, c = n;
+}
+document.getElementById("answer").innerHTML = y;
 
-    if (n<=1){
-    return 1;
-    }
-    for(let i = 2; i <= n; i++) {
-      c = x + y;
-      x = y;
-      y = c;
-    }
+return y;
+}
 
-return c;
-
-};
-
-submit.addEventListener("click", getFibonacciIndex())
-
-declaration.innerText = getFibonacciIndex.value;
-
-
-
-
-   
-
-
-
-
+document.getElementById("submitButton").addEventListener("click", fibonacci)
