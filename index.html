@@ -18,12 +18,14 @@
             The Fibonacci of
         </div>
         <div class="p-1 align-self-center">
-            <input id="numberHere" type="number" size="sm" class="form-control" placeholder="#">
+          <div>  <input id="numberHere" type="number" size="sm" class="form-control border" placeholder="#">  <div id="alert" class="position-absolute mt-1 border border-danger text-danger visually-hidden">can't be larger than 50</div></div></div>
         </div>
         <div class="p-1">
             <button id="submitButton" type="button" class="btn btn-primary">is</button>
         </div>
-        <div id="answer" class="p-1 fs-5 align-self-center"><u><b>Y</b></u></div>
+        <div id="answer" class="visually-hidden p-1 fs-5 align-self-center"><u><b>Y</b></u></div><div id="spinner"  class="mx-2 visually-hidden spinner-border " role="status"></div>
+        <break></break>
+      
     </form>
   <!--  <div class="d-flex flew-row align-items-center mt-3 mb-5">
         <h2 class="display-3 mx-5">Results</h2>
