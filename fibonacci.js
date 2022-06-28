@@ -22,7 +22,7 @@ function getFib() {
         });
       }
       return response.json();
-    })
+    }) 
 
     .then((data) => {
       answer.innerHTML = data.result;
