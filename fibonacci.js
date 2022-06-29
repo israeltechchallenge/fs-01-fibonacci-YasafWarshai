@@ -1,57 +1,95 @@
 let getNumber = document.getElementById("numberHere");
 let fibURL = "http://localhost:5050/fibonacci/";
 let answer = document.getElementById("answer");
-let mySpinner = document.getElementById("spinner")
+let mySpinner = document.getElementById("spinner");
+let button = document.getElementById("submitButton");
+let li = document.getElementsByClassName("li");
+let alertBox = document.getElementById("alert");
+const resultsListurl = "http://localhost:5050/getFibonacciResults";
+const resultsListElement = document.getElementById("results-list");
 
 function getFib() {
   mySpinner.classList.remove("visually-hidden");
   answer.classList.add("visually-hidden");
+  if (getNumber.value > 50) {
+    alertBox.classList.remove("visually-hidden");
+    spinner.classList.add("visually-hidden");
+  }
+  if (getNumber.value < 50) {
 
-  console.log(`${fibURL}${getNumber.value}`);
+    fetch(`${fibURL}${getNumber.value}`)
+      .then(function (response) {
+        if (!response.ok) {
+          response.text().then((error) => {
+            answer.classList.remove(
+              "visually-hidden",
+              "text-decoration-underline",
+              "fw-bold"
+            );
+            answer.classList.add("text-danger");
+            alertBox.classList.add("visually-hidden");
+            getNumber.classList.add("border-danger");
+            answer.innerText = error;
+            mySpinner.classList.toggle("visually-hidden");
+          });
+        } else return response.json();
+      })
 
-  fetch(`${fibURL}${getNumber.value}`)
-    .then(function (response) {
-      if (!response.ok) {
-        response.text().then((error) => {
-          answer.classList.remove("visually-hidden");
-          answer.classList.add("text-danger");
-          getNumber.classList.add("border-danger");
-          answer.innerText = error;
-          mySpinner.classList.toggle("visually-hidden");
-          console.log(error);
-        });
-      }
-      return response.json();
-    }) 
+      .then((data) => {
+        answer.innerHTML = data.result;
+      })
 
+      .then((spinner) => {
+        mySpinner.classList.toggle("visually-hidden");
+        answer.classList.remove("visually-hidden", "text-danger");
+        answer.classList.add("text-decoration-underline", "fw-bold");
+        getNumber.classList.remove("border-danger");
+        alertBox.classList.add("visually-hidden");
+      });
+  }
+}
+
+button.addEventListener("click", getFib);
+
+function getResults() {
+
+  fetch(resultsListurl)
+    .then((response) => response.json())
     .then((data) => {
-      answer.innerHTML = data.result;
-    })
-
-    .then((spinner) => {
-     mySpinner.classList.toggle("visually-hidden");
-      answer.classList.remove("visually-hidden");
-      answer.classList.remove("text-danger");
-      getNumber.classList.remove("border-danger");
+      printResultstoList(data);
     });
 }
 
-document.getElementById("submitButton").addEventListener("click", getFib);
-
-/* function fibonacci(e){
-  e.preventDefault();
-  let num = document.getElementById("numberHere").value;
-  let x = 0, y = 1, c;
-
-  for (let i = 1; i < num; i++) {
-  c = x + y;
-  x = y;
-  y = c;
-
+function printResultstoList(data) {
+  let myData = data.results;
+  myData.sort((a, b) => b.createdDate - a.createdDate);
+  resultsListElement.innerHTML = "";
+  for (i = 0; i < 10; i++) {
+    resultsListElement.innerHTML += `<li class="pb-2 pt-2 border-bottom border-secondary">The fibonacci of <b>${
+      myData[i].number
+    }</b> is <b>${myData[i].result}</b>. Calculated at: ${new Date(
+      myData[i].createdDate
+    )}</li>`;
+  }
 }
 
-return y;
+button.addEventListener("click", getResults);
+
+function fibonacci(e) {
+  e.preventDefault();
+  let num = document.getElementById("numberHere").value;
+  let x = 0,
+    y = 1,
+    c;
+
+  for (let i = 1; i < num; i++) {
+    c = x + y;
+    x = y;
+    y = c;
+  }
+
+  return y;
 }
 
 document.getElementById("submitButton").addEventListener("click", fibonacci)
- */
+ 

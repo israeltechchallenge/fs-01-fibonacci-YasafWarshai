@@ -10,7 +10,7 @@
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <style src="./styles.css"></style>
 </head>
- 
+
 <body>
     <h1 class="display-1 m-5">Fibonacci Calculator</h1>
     <form class="d-flex flex-row m-5">
@@ -18,34 +18,37 @@
             The Fibonacci of
         </div>
         <div class="p-1 align-self-center">
-          <div>  <input id="numberHere" type="number" size="sm" class="form-control border" placeholder="#">  <div id="alert" class="position-absolute mt-1 border border-danger text-danger visually-hidden">can't be larger than 50</div></div></div>
+            <div> <input id="numberHere" type="number" size="sm" class="form-control border" placeholder="#">
+                <div id="alert"
+                    class="position-absolute rounded-1 mt-1 p-1 border border-danger text-danger visually-hidden">can't
+                    be
+                    larger than 50</div>
+            </div>
+        </div>
         </div>
         <div class="p-1">
             <button id="submitButton" type="button" class="btn btn-primary">is</button>
         </div>
-        <div id="answer" class="visually-hidden p-1 fs-5 align-self-center"><u><b>Y</b></u></div><div id="spinner"  class="mx-2 visually-hidden spinner-border " role="status"></div>
+        <div id="answer" class="visually-hidden p-1 fs-5 align-self-center"><u><b>Y</b></u></div>
+        <div id="spinner" class="mx-2 visually-hidden spinner-border " role="status"></div>
         <break></break>
-      
+
     </form>
-  <!--  <div class="d-flex flew-row align-items-center mt-3 mb-5">
+    <div class="d-flex flew-row align-items-center mt-3 mb-5">
         <h2 class="display-3 mx-5">Results</h2>
         <div class="d-none spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
--->
 
 
+    <div class="mt-3 ms-5">
+        <ul id="results-list" class="d-inline-flex flex-column list-unstyled border-secondary pb-3 fs-5">
 
-   <!--
-    below this is results, not yet necessary
-   --> 
-   
-<!--    <div class="mt-3 ms-5">
-       <span class="border-bottom border-secondary pb-3 fs-5">The fibonacci of <b>8</b> is <b>21</b></span>
+        </ul>
     </div>
--->
- 
+
+
 
 </body>
 <script src="./fibonacci.js"></script>
