@@ -16,7 +16,6 @@ function getFib() {
     spinner.classList.add("visually-hidden");
   }
   if (getNumber.value < 50) {
-
     fetch(`${fibURL}${getNumber.value}`)
       .then(function (response) {
         if (!response.ok) {
@@ -49,15 +48,13 @@ function getFib() {
   }
 }
 
-button.addEventListener("click", getFib);
-
 function getResults() {
-
   fetch(resultsListurl)
     .then((response) => response.json())
     .then((data) => {
       printResultstoList(data);
-    });
+    })
+    .then(fetch(resultsListurl));
 }
 
 function printResultstoList(data) {
@@ -65,31 +62,47 @@ function printResultstoList(data) {
   myData.sort((a, b) => b.createdDate - a.createdDate);
   resultsListElement.innerHTML = "";
   for (i = 0; i < 10; i++) {
-    resultsListElement.innerHTML += `<li class="pb-2 pt-2 border-bottom border-secondary">The fibonacci of <b>${
-      myData[i].number
-    }</b> is <b>${myData[i].result}</b>. Calculated at: ${new Date(
+    resultsListElement.innerHTML += `<li class="pb-2 pt-2 border-bottom border-secondary">The fibonacci of <b>${myData[i].number}</b> is <b>${myData[i].result}</b>. Calculated at: ${new Date(
       myData[i].createdDate
     )}</li>`;
   }
 }
 
-button.addEventListener("click", getResults);
+function fibonacci() {
+  if (getNumber.value > 50) {
+    alertBox.classList.remove("visually-hidden");
+    spinner.classList.add("visually-hidden");
+  } else {
+    let x = 1,
+      y = 0,
+      c;
 
-function fibonacci(e) {
-  e.preventDefault();
-  let num = document.getElementById("numberHere").value;
-  let x = 0,
-    y = 1,
-    c;
-
-  for (let i = 1; i < num; i++) {
-    c = x + y;
-    x = y;
-    y = c;
+    for (i = 0; i < getNumber.value; i++) {
+      c = x;
+      x = x + y;
+      y = c;
+    }
+    answer.innerHTML = y;
+    answer.classList.remove("visually-hidden", "text-danger");
+    answer.classList.add("text-decoration-underline", "fw-bold");
+    getNumber.classList.remove("border-danger");
+    alertBox.classList.add("visually-hidden");
   }
-
-  return y;
 }
 
-document.getElementById("submitButton").addEventListener("click", fibonacci)
- 
+button.addEventListener("click", fibonacci);
+button.removeEventListener("click", getFib);
+button.removeEventListener("click", getResults);
+
+let checkBox = document.querySelector("input[name=checkbox");
+checkBox.addEventListener("change", (e) => {
+  if (e.target.checked) {
+    button.addEventListener("click", getResults);
+    button.addEventListener("click", getFib);
+    button.removeEventListener("click", fibonacci);
+  } else {
+    button.addEventListener("click", fibonacci);
+    button.removeEventListener("click", getFib);
+    button.removeEventListener("click", getResults);
+  }
+});
