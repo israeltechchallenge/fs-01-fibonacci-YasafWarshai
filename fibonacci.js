@@ -62,7 +62,9 @@ function printResultstoList(data) {
   myData.sort((a, b) => b.createdDate - a.createdDate);
   resultsListElement.innerHTML = "";
   for (i = 0; i < 10; i++) {
-    resultsListElement.innerHTML += `<li class="pb-2 pt-2 border-bottom border-secondary">The fibonacci of <b>${myData[i].number}</b> is <b>${myData[i].result}</b>. Calculated at: ${new Date(
+    resultsListElement.innerHTML += `<li class="pb-2 pt-2 border-bottom border-secondary">The fibonacci of <b>${
+      myData[i].number
+    }</b> is <b>${myData[i].result}</b>. Calculated at: ${new Date(
       myData[i].createdDate
     )}</li>`;
   }
